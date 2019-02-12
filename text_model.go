@@ -1,6 +1,7 @@
 package gutter
 
 import (
+	"fmt"
 	"sort"
 	"unicode"
 )
@@ -30,6 +31,12 @@ func (state *textModel) isSelected() bool {
 func (state *textModel) addChar(char []rune) {
 	state.RemoveSelectedText()
 	newWord := make([]rune, 0, len(char)+len(state.word))
+
+	if state.selectionBase >= len(state.word) {
+		fmt.Println("Out of bound exception catched")
+		return
+	}
+
 	newWord = append(newWord, state.word[:state.selectionBase]...)
 	newWord = append(newWord, char...)
 	newWord = append(newWord, state.word[state.selectionBase:]...)
