@@ -28,7 +28,7 @@ func (state *textModel) isSelected() bool {
 	return state.selectionBase != state.selectionExtent
 }
 
-func (state *textModel) addChar(char []rune) {
+func (state *textModel) addChar2(char []rune) {
 	state.RemoveSelectedText()
 	newWord := make([]rune, 0, len(char)+len(state.word))
 
@@ -47,6 +47,17 @@ func (state *textModel) addChar(char []rune) {
 	state.selectionExtent = state.selectionBase
 	state.notifyState()
 }
+
+func (state *textModel) addChar(char []rune) {
+	defer func() {
+		if err := recover(); err != nil {
+			fmt.Println(err)
+			return
+		}
+	}()
+	state.addChar2(char)
+}
+
 
 func (state *textModel) MoveCursorHome(mods int) {
 	state.selectionBase = 0
