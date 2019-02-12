@@ -43,6 +43,8 @@ func (state *textModel) addChar2(char []rune) {
 }
 
 func (state *textModel) addChar(char []rune) {
+	fmt.Print("about to add char")
+	fmt.Println(char)
 	defer func() {
 		if err := recover(); err != nil {
 			fmt.Println(err)
